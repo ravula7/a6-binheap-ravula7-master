@@ -40,7 +40,20 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     // TODO: dequeue
     @Override
     public V dequeue() {
+        //result is whatever is at index 0 which is guaranteed to be the smallest item
 
+
+        //move item at end of list to index 0 - list becomes one smaller
+        // int lastIndex = (patients.size())-1;
+        //Patient lastItem = patients.get(lastIndex);
+        //patients.add(0,lastItem);
+        //patients.remove(lastIndex);
+
+        //bubble down
+        //set current index to 0
+        //  int currentIndex = 0;
+
+        //while current index is not a leaf
         return null;
     }
 

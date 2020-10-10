@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleEmergencyRoom {
-    private List<Patient> patients;
+    private List<Patient> patients; // V and int
+
 
     //1a) Fill in the dequeue method to find the patient with the smallest priority using
    // a For-each loop. Return that patient and remove them from the list.
@@ -18,30 +19,33 @@ public class SimpleEmergencyRoom {
 
     // TODO: dequeue
     public Patient dequeue() {
+        int minIndex = 0;
+        Patient minPriorityValue = patients.get(minIndex);
 
-        //result is whatever is at index 0 which is guaranteed to be the smallest item
-        Patient min = patients.remove(0);
+        for(int i=1;i<patients.size();i++) {
+          if(patients.get(i).getPriority().compareTo(minPriorityValue.getPriority())<0) {
+                minIndex = i;
+                minPriorityValue = patients.get(i);
+            }
+        }
 
-        //move item at end of list to index 0 - list becomes one smaller
-        int lastIndex = (patients.size())-1;
-        Patient lastItem = patients.get(lastIndex);
-        patients.add(0,lastItem);
-        patients.remove(lastIndex);
-
-        //bubble down
-        //set current index to 0
-        int currentIndex = 0;
-
-       //while current index is not a leaf
-       
+         Patient dequeuedValue = patients.get(minIndex);
+         patients.remove(minIndex);
 
 
 
 
+        /* Psuedocode
+            1) set the minimum priority value to whatever is at index 0 for now
+            2) at each index, check if the priority value there is less than the minimum priority value
+                if it is, set that as the new minPriorityValue
+                if not, nothing happens - move on to next index
+                by the end of this, the minimum value of the list will be stored as minPriorityValue
+         */
 
 
 
-        return min;
+        return dequeuedValue;
     }
 
     public <V, P> void addPatient(V value, P priority) {
