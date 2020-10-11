@@ -32,9 +32,6 @@ public class SimpleEmergencyRoom {
          Patient dequeuedValue = patients.get(minIndex);
          patients.remove(minIndex);
 
-
-
-
         /* Psuedocode
             1) set the minimum priority value to whatever is at index 0 for now
             2) at each index, check if the priority value there is less than the minimum priority value
