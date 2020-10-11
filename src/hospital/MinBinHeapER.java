@@ -30,25 +30,38 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     // TODO: enqueue
     @Override
     public void enqueue(V value, P priority) {
-         int currentIndex = _heap.size()-1; //wherever the new object was just added, this is the current index
-         _heap.add(currentIndex, new Prioritized<V, P>() { //adding the new object (value and priority added to respective lists)
+
+         int currentIndex = _heap.size()-1; //wherever the new object was just added, this is the current index (last index)
+        //adding the new object (value and priority added to respective lists) to the end of the list
+         _heap.add(currentIndex, new Prioritized<V, P>() {
              @Override
              public V getValue() {
                  return null;
              }
-
              @Override
              public P getPriority() {
                  return null;
              }
          });
-
+        //bubble up (if needed)
          while(currentIndex>0){
             int parentIndex = (currentIndex-1)/2;
-         if(_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority())<0){
-             Prioritized<V,P> tmp = _heap.get(currentIndex);
-             _heap.add(currentIndex,_heap.get(parentIndex));
-             _heap.add(parentIndex,tmp);
+         if(_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority())<0){ //current priority is smaller than parent priority - need to swap!
+            //perform swap
+             Prioritized <V,P> tmp = _heap.get(currentIndex); //tmp stores the value at current index so that it doesn't get overridden when you set parent value at current index in the next step
+            _heap.set(currentIndex,_heap.get(parentIndex));
+            _heap.set(parentIndex,tmp);
+            
+
+
+            // Prioritized<V,P> current  = _heap.get(currentIndex); //current value and priority that will take the place of the parent value and priority
+
+            // Prioritized<V,P> parent = _heap.get(parentIndex); //parent value and priority that will take the place of the current value and priority
+             //at current index, set parent value
+             //at parent index, set current value
+
+             //_heap.add(currentIndex,_heap.get(parentIndex));
+             //_heap.add(parentIndex,tmp);
 
             // tmp = _heap.get(parentIndex);
             // V parentValue = _heap.get(parentIndex).getValue();
@@ -59,8 +72,7 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
             // _heap.get(currentIndex).getValue() = _heap.get(parentIndex).getValue();
             // _heap.get(parentIndex).getValue() = tmp;
 
-            //at current index, set parent value
-            //at parent index, set current value
+
 
 
 
