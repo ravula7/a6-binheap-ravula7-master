@@ -20,6 +20,7 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
      */
     // TODO: overloaded constructor
     public MinBinHeapER(Prioritized<V, P>[] initialEntries ) {
+        _heap = new ArrayList<>();
     }
 
     @Override
@@ -66,9 +67,52 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     // TODO: enqueue
     public void enqueue(V value) {
 
+        int currentIndex = _heap.size()-1;
+        _heap.add(currentIndex, new Patient<>(value));
 
+        while(currentIndex>0){
+            int parentIndex = (currentIndex-1/2);
+            Patient current = (Patient) _heap.get(currentIndex);
+            Patient parent = (Patient) _heap.get(parentIndex);
+            if(_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority())<0){
+                Patient tmp = current;
+                current = parent;
+                parent = tmp;
+            }
+            else{
+                break;
+            }
+            currentIndex=parentIndex;
+
+        }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // TODO: dequeue
     @Override
