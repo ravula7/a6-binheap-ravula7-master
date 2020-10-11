@@ -69,24 +69,28 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
 
     // TODO: enqueue
     public void enqueue(V value) {
+        if (_heap == null) {
+            int currentIndex = 0;
+            _heap.add(currentIndex, new Patient<>(value));
+        }
+        else {
+            int currentIndex = _heap.size() - 1;
+            _heap.add(currentIndex, new Patient<>(value));
 
-        int currentIndex = _heap.size()-1;
-        _heap.add(currentIndex, new Patient<>(value));
+            while (currentIndex > 0) {
+                int parentIndex = (currentIndex - 1 / 2);
+                Patient current = (Patient) _heap.get(currentIndex);
+                Patient parent = (Patient) _heap.get(parentIndex);
+                if (_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority()) < 0) {
+                    Patient tmp = current;
+                    current = parent;
+                    parent = tmp;
+                } else {
+                    break;
+                }
+                currentIndex = parentIndex;
 
-        while(currentIndex>0){
-            int parentIndex = (currentIndex-1/2);
-            Patient current = (Patient) _heap.get(currentIndex);
-            Patient parent = (Patient) _heap.get(parentIndex);
-            if(_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority())<0){
-                Patient tmp = current;
-                current = parent;
-                parent = tmp;
             }
-            else{
-                break;
-            }
-            currentIndex=parentIndex;
-
         }
 
     }
