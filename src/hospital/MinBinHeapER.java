@@ -125,18 +125,22 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     @Override
     public V dequeue() {
         //result is whatever is at index 0 which is guaranteed to be the smallest item
-        int minIndex = 0;
-        Patient minPriorityValue = (Patient) _heap.get(minIndex);
+        if(_heap==null){
+              return null;
+             }
+        else {
+            int minIndex = 0;
+            Patient minPriorityValue = (Patient) _heap.get(minIndex);
 
-        for(int i=1;i<_heap.size();i++) {
-            if(_heap.get(i).getPriority().compareTo((P) minPriorityValue.getPriority())<0) {
-                minIndex = i;
-                minPriorityValue = (Patient) _heap.get(i);
+            for (int i = 1; i < _heap.size(); i++) {
+                if (_heap.get(i).getPriority().compareTo((P) minPriorityValue.getPriority()) < 0) {
+                    minIndex = i;
+                    minPriorityValue = (Patient) _heap.get(i);
+                }
             }
-        }
 
-        V dequeuedValue = (V) _heap.get(minIndex);
-        _heap.remove(minIndex);
+            V dequeuedValue = (V) _heap.get(minIndex);
+            _heap.remove(minIndex);
 
         /* Psuedocode
             1) set the minimum priority value to whatever is at index 0 for now
@@ -147,9 +151,8 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
          */
 
 
-
-        return dequeuedValue;
-
+            return dequeuedValue;
+        }
         //move item at end of list to index 0 - list becomes one smaller
         // int lastIndex = (patients.size())-1;
         //Patient lastItem = patients.get(lastIndex);
