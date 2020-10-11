@@ -4,12 +4,16 @@ public class Main {
 
     public static void main(String[] args) {
 
+
+
+
+
         /*
         Part 1
         Find the average amount of time it takes to do 1 dequeue, in nanoseconds (hint: use a for loop).
         Record your average time in data.txt.
          */
-        SimpleEmergencyRoom myEmergencyRoom = new SimpleEmergencyRoom();
+       /* SimpleEmergencyRoom myEmergencyRoom = new SimpleEmergencyRoom();
         fillER(myEmergencyRoom);
         myEmergencyRoom.dequeue();
         myEmergencyRoom.dequeue();
@@ -21,6 +25,8 @@ public class Main {
         myEmergencyRoom.dequeue();
         myEmergencyRoom.dequeue();
         myEmergencyRoom.dequeue();
+
+        */
 
 
 
