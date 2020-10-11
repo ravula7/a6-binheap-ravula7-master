@@ -48,10 +48,14 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
             int parentIndex = (currentIndex-1)/2;
          if(_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority())<0){ //current priority is smaller than parent priority - need to swap!
             //perform swap
-             Prioritized <V,P> tmp = _heap.get(currentIndex); //tmp stores the value at current index so that it doesn't get overridden when you set parent value at current index in the next step
-            _heap.set(currentIndex,_heap.get(parentIndex));
+             Patient <V,P> tmp = (Patient<V, P>) _heap.get(currentIndex); //tmp stores the value at current index so that it doesn't get overridden when you set parent value at current index in the next step
+
+             _heap.set(currentIndex,(Patient<V, P>) _heap.get(parentIndex));
             _heap.set(parentIndex,tmp);
-            
+
+             // Prioritized<V,P> tmp = (Prioritized<V, P>) value;
+             // value = _root_value;
+             // _root_value = tmp;
 
 
             // Prioritized<V,P> current  = _heap.get(currentIndex); //current value and priority that will take the place of the parent value and priority
@@ -77,9 +81,7 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
 
 
 
-            // Prioritized<V,P> tmp = (Prioritized<V, P>) value;
-            // value = _root_value;
-            // _root_value = tmp;
+
              //Prioritized<V,P> tmp = _heap.get(currentIndex);
            //  _heap.remove(currentIndex);
            //  _heap.add(currentIndex,_heap.get(parentIndex));
