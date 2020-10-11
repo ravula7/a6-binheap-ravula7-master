@@ -137,7 +137,8 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     // TODO: getMin
     @Override
     public V getMin() {
-       return _heap.get(0).getValue();
+     //  return _heap.get(0).getValue();
+        return null;
     }
 
     @Override
