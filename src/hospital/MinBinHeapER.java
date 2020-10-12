@@ -33,22 +33,20 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
     public void enqueue(V value, P priority) {
         if (_heap.size() == 0) {
             _heap.add(new Patient<>(value, priority));
-        }
-        else {
+        } else {
             _heap.add(new Patient<>(value, priority));
-            int currentIndex = _heap.size()-1;
+            int currentIndex = _heap.size() - 1;
             while (currentIndex > 0) {
                 int parentIndex = (currentIndex - 1) / 2;
-                Patient<V, P> current = (Patient<V, P>) _heap.get(currentIndex); //current patient stored in case swap is necessary
-                Patient<V, P> parent = (Patient<V, P>) _heap.get(parentIndex); //parent patient stored in case swap is necessary
+                Patient<V, P> current = (Patient<V, P>) _heap.get(currentIndex);
+                Patient<V, P> parent = (Patient<V, P>) _heap.get(parentIndex);
 
-                if (current.getPriority().compareTo(parent.getPriority()) < 0) { //current priority is smaller than parent priority - need to swap!
+                if (current.getPriority().compareTo(parent.getPriority()) < 0) {
                     Patient<V, P> tmp = current;
-                    _heap.set(currentIndex,parent);
+                    _heap.set(currentIndex, parent);
                     _heap.set(parentIndex, tmp);
-                    currentIndex = parentIndex; //while loop exits once the parent index is 0 OR
-                }//when the current value isn't less than the root
-                else if (current.getPriority().compareTo(parent.getPriority()) > 0) {
+                    currentIndex = parentIndex;
+                } else if (current.getPriority().compareTo(parent.getPriority()) > 0) {
                     break;
                 }
             }
@@ -59,8 +57,7 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
     public void enqueue(V value) {
         if (_heap.size() == 0) {
             _heap.add(new Patient<>(value));
-        }
-        else {
+        } else {
             _heap.add(new Patient<>(value));
             int currentIndex = _heap.size() - 1;
 
@@ -71,14 +68,14 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
 
                 if (current.getPriority().compareTo(parent.getPriority()) < 0) {
                     Patient tmp = current;
-                    _heap.set(currentIndex,parent);
+                    _heap.set(currentIndex, parent);
                     _heap.set(parentIndex, tmp);
                     currentIndex = parentIndex;
                 } else if (current.getPriority().compareTo(parent.getPriority()) > 0)
                     break;
-                }
             }
         }
+    }
 
 
     // TODO: dequeue
@@ -89,14 +86,15 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
         } else if (_heap.size() != 0) {
             V dequeuedValue = (V) _heap.get(0);
             _heap.remove(0);
-
-            if (_heap.size() != 0) {
+            if (_heap.size() == 0) {
+                return dequeuedValue;
+            } else if (_heap.size() != 0) {
                 int lastIndex = (_heap.size()) - 1;
                 Patient replaceItem = (Patient) _heap.get(lastIndex);
                 _heap.add(0, replaceItem);
                 _heap.remove(lastIndex);
 
-                int currentIndex = 0; //where replaceItem is now the first item
+                int currentIndex = 0;
                 int leftIndex = (2 * currentIndex) + 1;
                 int rightIndex = (2 * currentIndex) + 2;
                 Patient leftChild = (Patient) _heap.get(leftIndex);
@@ -104,7 +102,7 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
 
                 while (leftChild != null || rightChild != null) {
                     if (leftChild != null && rightChild != null) {
-
+                        //left child is less than right
                         if (leftChild.getPriority().compareTo(rightChild.getPriority()) < 0) { //left is smaller than right
                             if (leftChild.getPriority().compareTo(replaceItem.getPriority()) < 0) { //left is smaller than current
                                 //swap leftChild and replaceItem
@@ -114,28 +112,28 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                                 currentIndex = leftIndex;
                                 leftIndex = (2 * currentIndex) + 1;
                                 rightIndex = (2 * currentIndex) + 2;
-                                 leftChild = (Patient) _heap.get(leftIndex);
-                                 rightChild = (Patient) _heap.get(rightIndex);
+                                leftChild = (Patient) _heap.get(leftIndex);
+                                rightChild = (Patient) _heap.get(rightIndex);
                             } else {
                                 break;
                             }
                         }
-                        if (rightChild.getPriority().compareTo(leftChild.getPriority()) < 0) { //right is smaller than left
+                        //right child is less than left
+                        else if (rightChild.getPriority().compareTo(leftChild.getPriority()) < 0) { //right is smaller than left
                             if (rightChild.getPriority().compareTo(replaceItem.getPriority()) < 0) { //right is smaller than current
                                 //swap rightChild and replaceItem
                                 Patient tmp = rightChild;
                                 rightChild = replaceItem;
                                 replaceItem = tmp;
                                 currentIndex = rightIndex;
-                                 leftIndex = (2 * currentIndex) + 1;
-                                 rightIndex = (2 * currentIndex) + 2;
-                                 leftChild = (Patient) _heap.get(leftIndex);
-                                 rightChild = (Patient) _heap.get(rightIndex);
+                                leftIndex = (2 * currentIndex) + 1;
+                                rightIndex = (2 * currentIndex) + 2;
+                                leftChild = (Patient) _heap.get(leftIndex);
+                                rightChild = (Patient) _heap.get(rightIndex);
                             } else {
                                 break;
                             }
                         }
-
                     } else if (leftChild != null && rightChild == null) {
                         if (leftChild.getPriority().compareTo(replaceItem.getPriority()) < 0) { //left is smaller than current
                             //swap leftChild and replaceItem
@@ -151,17 +149,17 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                             break;
                         }
                     }
-                }
-            } return dequeuedValue;
-        } return null;
+                } return dequeuedValue;
+            }
+        }
+        return null;
     }
 
 
     // TODO: getMin
     @Override
     public V getMin() {
-        //  return _heap.get(0).getValue();
-        return null;
+        return _heap.get(0).getValue();
     }
 
     @Override
