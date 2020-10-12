@@ -11,6 +11,8 @@ public class Main {
         heap.enqueue("pls",10);
         heap.enqueue("leave",2);
 
+
+
         heap.dequeue();
 
 
