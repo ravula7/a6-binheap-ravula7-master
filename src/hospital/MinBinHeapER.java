@@ -101,41 +101,41 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                 int currentIndex = 0;
                 int leftIndex = (2 * currentIndex) + 1;
                 int rightIndex = (2 * currentIndex) + 2;
-                Patient leftChild = (Patient) _heap.get(leftIndex);
-                Patient rightChild = (Patient) _heap.get(rightIndex);
+               // Patient leftChild = (Patient) _heap.get(leftIndex);
+                //Patient rightChild = (Patient) _heap.get(rightIndex);
 
-                while (leftChild != null || rightChild != null) {
-                    if (leftChild != null && rightChild != null) {
+                while (_heap.get(leftIndex)!= null || _heap.get(rightIndex) != null) {
+                    if (_heap.get(leftIndex) != null && _heap.get(rightIndex) != null) {
                         //left child is less than right
-                        if (leftChild.getPriority().compareTo(rightChild.getPriority()) < 0) { //left is smaller than right
-                            if (leftChild.getPriority().compareTo(replaceItem.getPriority()) < 0) { //left is smaller than current
-                                //swap leftChild and replaceItem
-                                Patient tmp = leftChild;
-                                leftChild = replaceItem;
-                                replaceItem = tmp;
+                        if (_heap.get(leftIndex).getPriority().compareTo(_heap.get(rightIndex).getPriority()) < 0) { //left is smaller than right
+                            if (_heap.get(leftIndex).getPriority().compareTo(_heap.get(0).getPriority()) < 0) { //left is smaller than current
+                                //swap
+                                Patient tmp = (Patient) _heap.get(currentIndex);
+                                _heap.set(currentIndex, _heap.get(leftIndex));
+                                _heap.set(leftIndex,tmp);
                                 currentIndex = leftIndex;
                             } else {
                                 break;
                             }
                         }
                         //right child is less than left
-                        else if (rightChild.getPriority().compareTo(leftChild.getPriority()) < 0) { //right is smaller than left
-                            if (rightChild.getPriority().compareTo(replaceItem.getPriority()) < 0) { //right is smaller than current
+                        else if (_heap.get(rightIndex).getPriority().compareTo(_heap.get(leftIndex).getPriority()) < 0) { //right is smaller than left
+                            if (_heap.get(rightIndex).getPriority().compareTo(_heap.get(0).getPriority()) < 0) { //right is smaller than current
                                 //swap rightChild and replaceItem
-                                Patient tmp = rightChild;
-                                rightChild = replaceItem;
-                                replaceItem = tmp;
+                                Patient tmp = (Patient) _heap.get(currentIndex);
+                                _heap.set(currentIndex, _heap.get(rightIndex));
+                                _heap.set(rightIndex,tmp);
                                 currentIndex = rightIndex;
                             } else {
                                 break;
                             }
                         }
-                    } else if (leftChild != null && rightChild == null) {
-                        if (leftChild.getPriority().compareTo(replaceItem.getPriority()) < 0) { //left is smaller than current
+                    } else if (_heap.get(leftIndex) != null && _heap.get(rightIndex) == null) {
+                        if (_heap.get(leftIndex).getPriority().compareTo(_heap.get(0).getPriority()) < 0) { //left is smaller than current
                             //swap leftChild and replaceItem
-                            Patient tmp = leftChild;
-                            leftChild = replaceItem;
-                            replaceItem = tmp;
+                            Patient tmp = (Patient) _heap.get(currentIndex);
+                            _heap.set(currentIndex, _heap.get(leftIndex));
+                            _heap.set(leftIndex,tmp);
                             currentIndex = leftIndex;
                         } else {
                             break;
