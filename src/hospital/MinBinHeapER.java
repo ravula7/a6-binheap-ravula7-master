@@ -105,6 +105,8 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                 //Patient rightChild = (Patient) _heap.get(rightIndex);
 
                 while (_heap.get(leftIndex)!= null || _heap.get(rightIndex) != null) {
+                    leftIndex = (2 * currentIndex) + 1;
+                    rightIndex = (2 * currentIndex) + 2;
                     if (_heap.get(leftIndex) != null && _heap.get(rightIndex) != null) {
                         //left child is less than right
                         if (_heap.get(leftIndex).getPriority().compareTo(_heap.get(rightIndex).getPriority()) < 0) { //left is smaller than right
@@ -141,7 +143,8 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                             break;
                         }
                     }
-                } return dequeuedValue;
+                }
+                return dequeuedValue;
             }
         } return null;
     }
