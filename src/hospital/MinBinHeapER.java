@@ -32,13 +32,11 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
     @Override
     public void enqueue(V value, P priority) {
         if (_heap.size() == 0) {
-            _heap.add(0, new Patient<>(value, priority));
-        } else {
-            int currentIndex = _heap.size() - 1; //wherever the new object was just added, this is the current index (last index)
-            //adding the new object (patient) (value and priority added to respective lists) to the end of the list
-            _heap.add(currentIndex, new Patient<>(value, priority));
-
-            //bubble up (if needed)
+            _heap.add(new Patient<>(value, priority));
+        }
+        else {
+            _heap.add(new Patient<>(value, priority));
+            int currentIndex = _heap.size()-1;
             while (currentIndex > 0) {
                 int parentIndex = (currentIndex - 1) / 2; //find parent of current
                 Patient<V, P> current = (Patient<V, P>) _heap.get(currentIndex); //current patient stored in case swap is necessary
@@ -62,9 +60,8 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
         if (_heap.size() == 0) {
             _heap.add(0, new Patient<>(value));
         } else {
+            _heap.add(new Patient<>(value));
             int currentIndex = _heap.size() - 1;
-            _heap.add(currentIndex, new Patient<>(value));
-
             while (currentIndex > 0) {
                 int parentIndex = (currentIndex - 1 / 2);
                 Patient current = (Patient) _heap.get(currentIndex);
