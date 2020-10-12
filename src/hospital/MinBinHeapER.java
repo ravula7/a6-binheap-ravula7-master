@@ -112,6 +112,10 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                                 leftChild = replaceItem;
                                 replaceItem = tmp;
                                 currentIndex = leftIndex;
+                                leftIndex = (2 * currentIndex) + 1;
+                                rightIndex = (2 * currentIndex) + 2;
+                                 leftChild = (Patient) _heap.get(leftIndex);
+                                 rightChild = (Patient) _heap.get(rightIndex);
                             } else {
                                 break;
                             }
@@ -123,6 +127,10 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                                 rightChild = replaceItem;
                                 replaceItem = tmp;
                                 currentIndex = rightIndex;
+                                 leftIndex = (2 * currentIndex) + 1;
+                                 rightIndex = (2 * currentIndex) + 2;
+                                 leftChild = (Patient) _heap.get(leftIndex);
+                                 rightChild = (Patient) _heap.get(rightIndex);
                             } else {
                                 break;
                             }
@@ -135,6 +143,10 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                             leftChild = replaceItem;
                             replaceItem = tmp;
                             currentIndex = leftIndex;
+                            leftIndex = (2 * currentIndex) + 1;
+                            rightIndex = (2 * currentIndex) + 2;
+                            leftChild = (Patient) _heap.get(leftIndex);
+                            rightChild = (Patient) _heap.get(rightIndex);
                         } else {
                             break;
                         }
