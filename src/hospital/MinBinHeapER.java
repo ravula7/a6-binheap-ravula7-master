@@ -143,8 +143,7 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                     }
                 } return dequeuedValue;
             }
-        }
-        return null;
+        } return null;
     }
 
 
