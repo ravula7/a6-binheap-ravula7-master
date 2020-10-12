@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V, P> {
 
-    private List<Prioritized<V,P>> _heap;
+    private List<Prioritized<V, P>> _heap;
 
     /**
      * Constructor that creates an empty heap of hospital.Prioritized objects.
@@ -19,7 +19,7 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
      * Constructor that builds a heap given an initial array of hospital.Prioritized objects.
      */
     // TODO: overloaded constructor
-    public MinBinHeapER(Prioritized<V, P>[] initialEntries ) {
+    public MinBinHeapER(Prioritized<V, P>[] initialEntries) {
         _heap = new ArrayList<>();
     }
 
@@ -34,8 +34,7 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
         if (_heap == null) {
             int currentIndex = 0;
             _heap.add(currentIndex, new Patient<>(value, priority));
-        }
-        else {
+        } else {
             int currentIndex = _heap.size() - 1; //wherever the new object was just added, this is the current index (last index)
             //adding the new object (patient) (value and priority added to respective lists) to the end of the list
             _heap.add(currentIndex, new Patient<>(value, priority));
@@ -50,6 +49,7 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
                 if (_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority()) < 0) { //current priority is smaller than parent priority - need to swap!
                     //perform swap
                     //tmp stores the value at current index so that it doesn't get overridden when you set parent value at current index in the next step
+
                     Patient<V, P> tmp = current;
                     current = parent;
                     parent = tmp;
@@ -69,11 +69,10 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
 
     // TODO: enqueue
     public void enqueue(V value) {
-        if (_heap == null) {
+        if (_heap.size() == 0) {
             int currentIndex = 0;
             _heap.add(currentIndex, new Patient<>(value));
-        }
-        else {
+        } else {
             int currentIndex = _heap.size() - 1;
             _heap.add(currentIndex, new Patient<>(value));
 
@@ -96,81 +95,87 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // TODO: dequeue
     @Override
     public V dequeue() {
-        //result is whatever is at index 0 which is guaranteed to be the smallest item
-        if(_heap==null){
-              return null;
-             }
-        else {
-            int minIndex = 0;
-            Patient minPriorityValue = (Patient) _heap.get(minIndex);
+        if (_heap.size() == 0) {
+            return null;
+        }
 
-            for (int i = 1; i < _heap.size(); i++) {
-                if (_heap.get(i).getPriority().compareTo((P) minPriorityValue.getPriority()) < 0) {
-                    minIndex = i;
-                    minPriorityValue = (Patient) _heap.get(i);
+        V dequeuedValue = (V) _heap.get(0);
+        _heap.remove(0);
+
+        int lastIndex = (_heap.size()) - 1;
+        Patient replaceItem = (Patient) _heap.get(lastIndex);
+        _heap.add(0, replaceItem);
+        _heap.remove(lastIndex);
+
+        int currentIndex = 0; //where lastItem is now as the first item
+        int leftIndex = (2 * currentIndex) + 1;
+        int rightIndex = (2 * currentIndex) + 2;
+        Patient leftChild = (Patient) _heap.get(leftIndex);
+        Patient rightChild = (Patient) _heap.get(rightIndex);
+
+        while (leftChild != null || rightChild != null) {
+            if (leftChild != null && rightChild != null) {
+                if (leftChild.getPriority().compareTo(rightChild.getPriority()) < 0) { //current priority is smaller than parent priority - need to swap!
+                    Patient tmp = leftChild;
+                    leftChild = replaceItem;
+                    replaceItem = tmp;
+                    currentIndex = leftIndex;
+                    leftIndex = (2 * currentIndex) + 1;
+                    rightIndex = (2 * currentIndex) + 2;
+                    leftChild = (Patient) _heap.get(leftIndex);
+                    rightChild = (Patient) _heap.get(rightIndex);
+
+                }
+                else if(leftChild.getPriority().compareTo(rightChild.getPriority()) > 0){
+                    Patient tmp = rightChild;
+                    rightChild = replaceItem;
+                    replaceItem = tmp;
+                    currentIndex = rightIndex;
+                    leftIndex = (2 * currentIndex) + 1;
+                    rightIndex = (2 * currentIndex) + 2;
+                    leftChild = (Patient) _heap.get(leftIndex);
+                    rightChild = (Patient) _heap.get(rightIndex);
+                }
+
+                else {
+                    break;
+                }
+            }
+            else if(leftChild != null && rightChild == null) {
+                if (leftChild.getPriority().compareTo(replaceItem.getPriority()) < 0){
+                    Patient tmp = leftChild;
+                    leftChild = replaceItem;
+                    replaceItem = tmp;
+                    currentIndex = leftIndex;
+                    leftIndex = (2 * currentIndex) + 1;
+                    rightIndex = (2 * currentIndex) + 2;
+                    leftChild = (Patient) _heap.get(leftIndex);
+                    rightChild = (Patient) _heap.get(rightIndex);
+                }
+                else{
+                    break;
                 }
             }
 
-            V dequeuedValue = (V) _heap.get(minIndex);
-            _heap.remove(minIndex);
-
-        /* Psuedocode
-            1) set the minimum priority value to whatever is at index 0 for now
-            2) at each index, check if the priority value there is less than the minimum priority value
-                if it is, set that as the new minPriorityValue
-                if not, nothing happens - move on to next index
-                by the end of this, the minimum value of the list will be stored as minPriorityValue
-         */
-
-
-            return dequeuedValue;
         }
+
+
+        //fix the invariants -->  value at index 0 needs to be min priority
+
         //move item at end of list to index 0 - list becomes one smaller
-        // int lastIndex = (patients.size())-1;
-        //Patient lastItem = patients.get(lastIndex);
-        //patients.add(0,lastItem);
-        //patients.remove(lastIndex);
+
 
         //bubble down
-        //set current index to 0
-        //  int currentIndex = 0;
 
-        //while current index is not a leaf
 
-      // if(_heap==null){
-      //     return null;
-      // }
-      // else if
-
+        return dequeuedValue;
     }
+
+
+
 
     // TODO: getMin
     @Override
