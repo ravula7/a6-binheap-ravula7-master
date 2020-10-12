@@ -38,17 +38,17 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
             _heap.add(new Patient<>(value, priority));
             int currentIndex = _heap.size()-1;
             while (currentIndex > 0) {
-                int parentIndex = (currentIndex - 1) / 2; //find parent of current
+                int parentIndex = (currentIndex - 1) / 2;
                 Patient<V, P> current = (Patient<V, P>) _heap.get(currentIndex); //current patient stored in case swap is necessary
                 Patient<V, P> parent = (Patient<V, P>) _heap.get(parentIndex); //parent patient stored in case swap is necessary
 
-                if (_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority()) < 0) { //current priority is smaller than parent priority - need to swap!
+                if (current.getPriority().compareTo(parent.getPriority()) < 0) { //current priority is smaller than parent priority - need to swap!
                     Patient<V, P> tmp = current;
-                    current = parent;
-                    parent = tmp;
+                    _heap.set(currentIndex,parent);
+                    _heap.set(parentIndex, tmp);
                     currentIndex = parentIndex; //while loop exits once the parent index is 0 OR
                 }//when the current value isn't less than the root
-                else {
+                else if (current.getPriority().compareTo(parent.getPriority()) > 0) {
                     break;
                 }
             }
@@ -58,26 +58,27 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
     // TODO: enqueue
     public void enqueue(V value) {
         if (_heap.size() == 0) {
-            _heap.add(0, new Patient<>(value));
-        } else {
+            _heap.add(new Patient<>(value));
+        }
+        else {
             _heap.add(new Patient<>(value));
             int currentIndex = _heap.size() - 1;
+
             while (currentIndex > 0) {
                 int parentIndex = (currentIndex - 1 / 2);
                 Patient current = (Patient) _heap.get(currentIndex);
                 Patient parent = (Patient) _heap.get(parentIndex);
 
-                if (_heap.get(currentIndex).getPriority().compareTo(_heap.get(parentIndex).getPriority()) < 0) {
+                if (current.getPriority().compareTo(parent.getPriority()) < 0) {
                     Patient tmp = current;
-                    current = parent;
-                    parent = tmp;
+                    _heap.set(currentIndex,parent);
+                    _heap.set(parentIndex, tmp);
                     currentIndex = parentIndex;
-                } else {
+                } else if (current.getPriority().compareTo(parent.getPriority()) > 0)
                     break;
                 }
             }
         }
-    }
 
 
     // TODO: dequeue
