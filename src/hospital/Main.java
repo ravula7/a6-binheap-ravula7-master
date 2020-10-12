@@ -3,7 +3,10 @@ package hospital;
 public class Main {
 
     public static void main(String[] args) {
-
+        MinBinHeapER heap = new MinBinHeapER();
+        heap.enqueue("hi",3);
+        //heap.enqueue("bye",5);
+        heap.dequeue();
 
 
 

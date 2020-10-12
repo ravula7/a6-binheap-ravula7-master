@@ -12,7 +12,7 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
      * Constructor that creates an empty heap of hospital.Prioritized objects.
      */
     public MinBinHeapER() {
-        _heap = new ArrayList<>();
+        _heap = new ArrayList <Prioritized<V,P>>();
     }
 
     /**
@@ -31,10 +31,10 @@ public class MinBinHeapER  <V, P extends Comparable<P>> implements BinaryHeap<V,
     // TODO: enqueue
     @Override
     public void enqueue(V value, P priority) {
-        if (_heap == null) {
-            int currentIndex = 0;
-            _heap.add(currentIndex, new Patient<>(value, priority));
-        } else {
+        if (_heap.size()==0) {
+            _heap.add(0, new Patient<>(value, priority));
+        }
+        else {
             int currentIndex = _heap.size() - 1; //wherever the new object was just added, this is the current index (last index)
             //adding the new object (patient) (value and priority added to respective lists) to the end of the list
             _heap.add(currentIndex, new Patient<>(value, priority));
