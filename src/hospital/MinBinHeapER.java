@@ -97,9 +97,10 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
         if (_heap.size() > 2) {
             V dequeuedValue = (V) _heap.get(0);
             //fix the invariants
-            _heap.remove(0);
+            //_heap.remove(0);
             _heap.add(0, _heap.get(size() - 1));
-            _heap.remove(size() - 1);
+            _heap.remove(size());
+            _heap.remove(0);
 
             //int replaceIndex = size() - 1;
             //_heap.remove(replaceIndex); //size becomes 1 smaller
