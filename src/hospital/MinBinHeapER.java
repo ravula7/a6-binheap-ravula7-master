@@ -97,10 +97,12 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
         if (_heap.size() > 2) {
             V dequeuedValue = (V) _heap.get(0);
             //fix the invariants
-            int replaceIndex = size() - 1;
             _heap.remove(0);
-            _heap.add(0, _heap.get(replaceIndex));
-            _heap.remove(replaceIndex); //size becomes 1 smaller
+            _heap.add(0, _heap.get(size() - 1));
+            _heap.remove(size() - 1);
+
+            //int replaceIndex = size() - 1;
+            //_heap.remove(replaceIndex); //size becomes 1 smaller
 
             int currentIndex = 0;
             int leftIndex = (currentIndex * 2) + 1;
@@ -114,34 +116,36 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                     if (_heap.get(leftIndex).getPriority().compareTo(_heap.get(rightIndex).getPriority()) < 0) {
                         if (_heap.get(leftIndex).getPriority().compareTo(_heap.get(currentIndex).getPriority()) < 0) {
                             //swap left and current value
-                            Patient <V, P> tmp = (Patient) _heap.get(leftIndex);
+                            Patient<V, P> tmp = (Patient) _heap.get(leftIndex);
                             _heap.set(leftIndex, _heap.get(currentIndex));
                             _heap.set(currentIndex, tmp);
                             //update indexes
                             currentIndex = leftIndex;
                             leftIndex = (currentIndex * 2) + 1;
                             rightIndex = (currentIndex * 2) + 2;
-                        }
-                        else{break;} //while loop will end once children are not less than current
+                        } else {
+                            break;
+                        } //while loop will end once children are not less than current
                     }
                     //when right is smaller than current
                     if (_heap.get(rightIndex).getPriority().compareTo(_heap.get(leftIndex).getPriority()) < 0) {
                         if (_heap.get(rightIndex).getPriority().compareTo(_heap.get(currentIndex).getPriority()) < 0) {
                             //swap right and current value
-                            Patient <V, P> tmp = (Patient) _heap.get(rightIndex);
+                            Patient<V, P> tmp = (Patient) _heap.get(rightIndex);
                             _heap.set(rightIndex, _heap.get(currentIndex));
                             _heap.set(currentIndex, tmp);
                             //update indexes
                             currentIndex = rightIndex;
                             leftIndex = (currentIndex * 2) + 1;
                             rightIndex = (currentIndex * 2) + 2;
-                        }
-                        else{break;} //while loop will end once children are not less than current
+                        } else {
+                            break;
+                        } //while loop will end once children are not less than current
                     }
                 }
                 //left child
                 if (_heap.get(leftIndex) != null && _heap.get(rightIndex) == null) {
-                   //when left is smaller than current
+                    //when left is smaller than current
                     if (_heap.get(leftIndex).getPriority().compareTo(_heap.get(currentIndex).getPriority()) < 0) {
                         //swap left and current value
                         Patient<V, P> tmp = (Patient) _heap.get(leftIndex);
@@ -151,15 +155,15 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                         currentIndex = leftIndex;
                         leftIndex = (currentIndex * 2) + 1;
                         rightIndex = (currentIndex * 2) + 2;
-                    }
-                    else{break;} //while loop will end once children are not less than current
+                    } else {
+                        break;
+                    } //while loop will end once children are not less than current
                 }
             } //while loop will end once leaf
             return dequeuedValue;
         }
         return null;
     }
-
 
 
     // TODO: getMin
