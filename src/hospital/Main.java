@@ -13,7 +13,7 @@ public class Main {
 
 
 
-        heap.dequeue();
+        System.out.println(heap.dequeue());
 
 
 
