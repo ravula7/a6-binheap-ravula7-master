@@ -5,8 +5,14 @@ public class Main {
     public static void main(String[] args) {
         MinBinHeapER heap = new MinBinHeapER();
         heap.enqueue("hi",3);
-        //heap.enqueue("bye",5);
-        System.out.println(heap.dequeue());
+        heap.enqueue("bye",5);
+        heap.enqueue("what",6);
+        heap.enqueue("no",7);
+        heap.enqueue("pls",10);
+        heap.enqueue("leave",2);
+
+        heap.dequeue();
+
 
 
 
