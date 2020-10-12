@@ -6,8 +6,7 @@ public class Main {
         MinBinHeapER heap = new MinBinHeapER();
         heap.enqueue("hi",3);
         //heap.enqueue("bye",5);
-        heap.dequeue();
-
+        System.out.println(heap.dequeue());
 
 
 
