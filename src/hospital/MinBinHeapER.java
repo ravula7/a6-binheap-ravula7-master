@@ -86,25 +86,23 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
             return null;
         }
         if (_heap.size() == 1) {
-            V dequeuedValue = (V) _heap.get(0);
+            V dequeuedValue = (V) _heap.get(0);//size is 1
+            _heap.remove(0); //size is 0 (has decremented by 1)
             return dequeuedValue;
         }
         if (_heap.size() == 2) {
-            V dequeuedValue = (V) _heap.get(0);
-            _heap.remove(0);
-            _heap.add(0, _heap.get(1));
+            V dequeuedValue = (V) _heap.get(0); //size is 2
+            _heap.remove(0); //now size is 1
+            _heap.add(0, _heap.get(1)); //replace - size is 2
+            _heap.remove(1); //size back to 1 (has decremented by 1)
             return dequeuedValue;
         }
         if (_heap.size() > 2) {
-            V dequeuedValue = (V) _heap.get(0);
+            V dequeuedValue = (V) _heap.get(0); //original size = n
             //fix the invariants
-            //_heap.remove(0);
-            _heap.add(0, _heap.get(size() - 1));
-            _heap.remove(size());
-            _heap.remove(0);
-
-            //int replaceIndex = size() - 1;
-            //_heap.remove(replaceIndex); //size becomes 1 smaller
+            _heap.remove(0); //size-1=n-1
+            _heap.add(0, _heap.get(size())); //replace - size is n
+            _heap.remove(size()); //size back to n-1 (has decremented by 1)
 
             int currentIndex = 0;
             int leftIndex = (currentIndex * 2) + 1;
