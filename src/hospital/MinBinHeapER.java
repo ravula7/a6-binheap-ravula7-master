@@ -123,9 +123,6 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                             currentIndex = leftIndex;
                             leftIndex = (currentIndex * 2) + 1;
                             rightIndex = (currentIndex * 2) + 2;
-                            if(leftIndex == -1 && rightIndex == -1){
-                                break;
-                            }
                         } else {
                             break;
                         } //while loop will end once children are not less than current
@@ -141,9 +138,6 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                             currentIndex = rightIndex;
                             leftIndex = (currentIndex * 2) + 1;
                             rightIndex = (currentIndex * 2) + 2;
-                            if(leftIndex == -1 && rightIndex == -1){
-                                break;
-                            }
                         } else {
                             break;
                         } //while loop will end once children are not less than current
@@ -161,9 +155,6 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                         currentIndex = leftIndex;
                         leftIndex = (currentIndex * 2) + 1;
                         rightIndex = (currentIndex * 2) + 2;
-                        if(leftIndex == -1 && rightIndex == -1){
-                            break;
-                        }
                     } else {
                         break;
                     } //while loop will end once children are not less than current or when there is no left or right child
