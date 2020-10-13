@@ -80,6 +80,7 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
 
     // TODO: dequeue
     @Override
+    //are left and right valid indexes?
     public V dequeue() {
         if (_heap.size() == 0) {
             return null;
