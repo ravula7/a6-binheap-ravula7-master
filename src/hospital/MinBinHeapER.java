@@ -95,17 +95,17 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
 
         //calculate indexes to check what can replace the value at currentIndex if needed through swap
         int currentIndex = 0;
-        int leftIndex = (currentIndex*2)+1;
-        int rightIndex = (currentIndex*2)+2;
+       // int leftIndex = (currentIndex*2)+1;
+        //int rightIndex = (currentIndex*2)+2;
 
         //while leaf --> left index isn't valid (which means there is no left leaf, so why would there be a right leaf)
-        while(!(leftIndex >= size()-1)){
+        while(!((currentIndex*2)+1 >= size()-1)){
             //only left child
-            if((leftIndex == size()-1)){ //if left index is at the end
+            if(((currentIndex*2)+1 == size()-1)){ //if left index is at the end
                 //if left child is less than current child, swap
-                if(_heap.get(leftIndex).getPriority().compareTo(_heap.get(currentIndex).getPriority())<0){
-                    Collections.swap(_heap, currentIndex, leftIndex);
-                    currentIndex = leftIndex;
+                if(_heap.get((currentIndex*2)+1).getPriority().compareTo(_heap.get(currentIndex).getPriority())<0){
+                    Collections.swap(_heap, currentIndex, (currentIndex*2)+1);
+                    currentIndex = (currentIndex*2)+1;
                 }
                 //if that's not the case, then break -- invariants have been fixed
                 else{
@@ -115,10 +115,10 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
             //both left and right children
             else {
                 //if left value is less than right value and current value, then swap. else break
-                if(_heap.get(leftIndex).getPriority().compareTo(_heap.get(rightIndex).getPriority())<0){
-                    if(_heap.get(leftIndex).getPriority().compareTo(_heap.get(currentIndex).getPriority())<0){
-                        Collections.swap(_heap,currentIndex,leftIndex);
-                        currentIndex = leftIndex;
+                if(_heap.get((currentIndex*2)+1).getPriority().compareTo(_heap.get((currentIndex*2)+2).getPriority())<0){
+                    if(_heap.get((currentIndex*2)+1).getPriority().compareTo(_heap.get(currentIndex).getPriority())<0){
+                        Collections.swap(_heap,currentIndex,(currentIndex*2)+1);
+                        currentIndex = (currentIndex*2)+1;
                     }
                     else{
                        break;
@@ -127,9 +127,9 @@ public class MinBinHeapER<V, P extends Comparable<P>> implements BinaryHeap<V, P
                 //otherwise, right value is less than left value
                 else {
                     //if right value is less than current value, then swap. else break
-                    if(_heap.get(rightIndex).getPriority().compareTo(_heap.get(currentIndex).getPriority()) <0){
-                        Collections.swap(_heap, currentIndex,rightIndex);
-                        currentIndex = rightIndex;
+                    if(_heap.get((currentIndex*2)+2).getPriority().compareTo(_heap.get(currentIndex).getPriority()) <0){
+                        Collections.swap(_heap, currentIndex,(currentIndex*2)+2);
+                        currentIndex = (currentIndex*2)+2;
                     }
                     else {
                        break;
